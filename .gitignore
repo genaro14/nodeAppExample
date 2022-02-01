@@ -40,6 +40,8 @@ build/Release
 
 # Dependency directories
 node_modules/
+mongodb/database
+!mongodb/database/docker-compose.yaml
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
