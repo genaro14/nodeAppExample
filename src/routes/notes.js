@@ -1,12 +1,13 @@
-router = require('express').Router();
+ router = require('express').Router();
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const Note = require('../models/Note');
+const { isAuthenticated } = require('../helpers/auth');
 
-router.get('/notes/add', function(req, res) {
+router.get('/notes/add',isAuthenticated, function(req, res) {
     res.render('notes/new-note');
 });
 
-router.post('/notes/add', async (req, res) => {
+router.post('/notes/add', isAuthenticated, async (req, res) => {
     console.log(req.body);
     const {title, description} = req.body;
     const errors = [];
@@ -31,7 +32,7 @@ router.post('/notes/add', async (req, res) => {
     }
 })
 
-router.get('/notes', async (req, res) => {
+router.get('/notes', isAuthenticated, async (req, res) => {
     const notes = 
         await Note
         .find()
@@ -42,21 +43,21 @@ router.get('/notes', async (req, res) => {
 })
 
 
-router.get('/notes/edit/:id', async  (req, res) => {
+router.get('/notes/edit/:id', isAuthenticated, async  (req, res) => {
     const note = await Note.findById(req.params.id).lean();
     
     res.render('notes/edit-note',{ note });
     //res.send(notes);
 });
 
-router.put('/notes/edit-note/:id', async  (req, res) => {
+router.put('/notes/edit-note/:id', isAuthenticated, async  (req, res) => {
     const {title,description} = req.body;
     await Note.findByIdAndUpdate(req.params.id,{title,description} );
     req.flash('success_msg', 'Note edited succesfully'),
     res.redirect('/notes');
 });
 
-router.delete('/notes/delete/:id',async (req, res) => {
+router.delete('/notes/delete/:id', isAuthenticated,async (req, res) => {
     await Note.findByIdAndDelete(req.params.id);    
     console.log('Delete ID: ',req.params.id);
     req.flash('error_msg', 'Note Deleted'),
