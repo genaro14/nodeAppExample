@@ -43,9 +43,14 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg'); 
     res.locals.error_msg = req.flash('error_msg'); 
     res.locals.error = req.flash('error'); 
-    const passedUser = req.user // BUG para mostrar en handlebars
-    res.locals.user = passedUser || null;
-    
+    //res.locals.user = req.user || null; 
+    let testObj = req.user || null; 
+    if (testObj != null){
+        const myJSON = JSON.stringify(testObj);
+        let obj = JSON.parse(myJSON);
+        res.locals.user = obj.name || null;
+
+    }
     
     next();
 } );

@@ -8,3 +8,14 @@ body {
 .logo {
     width: 50%;
 }
+
+/* footer */
+
+
+footer {
+  color: white;
+  margin-top: 100px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
