@@ -12,10 +12,21 @@ body {
 /* footer */
 
 
-footer {
+/* .footer-page {
   color: white;
-  margin-top: 100px;
-  position: absolute;
-  bottom: 0;
+  margin-top: 100px; 
+  position:fixed;
+  bottom:0;
+  width: 100%;
+  background-color: #2E2E2E;
+} */
+
+
+.simple-footer {
+  position:fixed;
+  bottom:0;
+  background-color: #212121;
+  color: white;
   width: 100%;
 }
+
